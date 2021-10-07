@@ -10,7 +10,8 @@ import ru.maggy.singlealbumapp.dto.Track
 
 
 interface OnInteractionListener {
-    fun onPlayOrPause(track: Track) {}
+    fun onPlay(track: Track) {}
+    fun onPause(track: Track) {}
 }
 
 class TracksAdapter(
@@ -43,7 +44,17 @@ class TrackViewHolder(
             }
 
             playButton.setOnClickListener {
-                onInteractionListener.onPlayOrPause(track)
+                when (track.isPlaying) {
+                    false -> {
+                        onInteractionListener.onPlay(track)
+                        track.isPlaying = true
+                    }
+                    else -> {
+                        onInteractionListener.onPause(track)
+                        track.isPlaying = false
+                    }
+                }
+                onInteractionListener.onPlay(track)
             }
         }
     }

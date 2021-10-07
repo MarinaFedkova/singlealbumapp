@@ -1,12 +1,10 @@
 package ru.maggy.singlealbumapp
 
-import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import ru.maggy.singlealbumapp.BuildConfig.BASE_URL
 import ru.maggy.singlealbumapp.databinding.ActivityMainBinding
-import ru.maggy.singlealbumapp.databinding.TrackCardBinding
 import ru.maggy.singlealbumapp.dto.Track
 import ru.maggy.singlealbumapp.viewModel.TracksViewModel
 
@@ -24,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         lifecycle.addObserver(mediaObserver)
 
         val adapter = TracksAdapter(object : OnInteractionListener {
-            override fun onPlayOrPause(track: Track) {
+            override fun onPlay(track: Track) {
                 viewModel.isPlaying(track.id)
                 mediaObserver.apply {
                     player?.setDataSource(BASE_URL + track.file)
@@ -43,7 +41,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        viewModel.data.observe(this) { tracks ->
+        viewModel.dataTracks.observe(this) { tracks ->
             adapter.submitList(tracks)
         }
     }

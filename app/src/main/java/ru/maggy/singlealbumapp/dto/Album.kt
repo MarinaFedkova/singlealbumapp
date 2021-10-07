@@ -1,7 +1,7 @@
 package ru.maggy.singlealbumapp.dto
 
 data class Album(
-    val id: Int = 0,
+    val idAlbum: Int = 0,
     val title: String = "",
     val subtitle: String = "",
     val artist: String = "",
